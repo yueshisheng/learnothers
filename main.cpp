@@ -1,12 +1,13 @@
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
+#include <memory>
 
-//æ¨¡æ¿å¯å˜å‚æ•°
+//Ä£°å¿É±ä²ÎÊı
 using namespace std;
 template<typename   ...T>
 auto sum(T ... t){
-    return (t+ ... );//å¿…é¡»åŠ ä¸ªæ‹¬å·
+    return (t+ ... );//±ØĞë¼Ó¸öÀ¨ºÅ
 
 }
 class N{
@@ -32,41 +33,60 @@ int main() {
     std::cout << sum(1,2,3,4,5,6)<< std::endl;
     C c;
     cout<<c.c_data<<endl;
-    cout<<c.data<<endl;//è¿”å›è™šåŸºç±»æ•°æ®
+    cout<<c.data<<endl;//·µ»ØĞé»ùÀàÊı¾İ
 
-    //strcpy()å‡½æ•°,ä¼šé‡åˆ°\nç»“æŸ
+    //strcpy()º¯Êı,»áÓöµ½\n½áÊø
     char* src="yueshi\0sheng";
     char dest[20];
     strcpy(dest,src);
     cout<<dest<<endl;
 
-    //memcpy()å‡½æ•°æŒ‰æŒ‡å®šå¤§å°copy,é‡åˆ°\0ä¹Ÿä¼šç»“æŸ
+    //memcpy()º¯Êı°´Ö¸¶¨´óĞ¡copy,Óöµ½\0Ò²»á½áÊø
     char newdest[20];
     memcpy(newdest,src,100);
     cout<<newdest<<endl;
 
 
-    //mallocå’Œfreeå‡½æ•°ä½¿ç”¨
+    //mallocºÍfreeº¯ÊıÊ¹ÓÃ
     int* p;
     p= (int*)malloc(sizeof(int));
     int num=100;
     p=&num;
     cout<<*p<<endl;
-    free(p);//é‡Šæ”¾çš„æ˜¯å†…å­˜ç©ºé—´ï¼ŒæŒ‡é’ˆä¾ç„¶å­˜åœ¨
+    free(p);//ÊÍ·ÅµÄÊÇÄÚ´æ¿Õ¼ä£¬Ö¸ÕëÒÀÈ»´æÔÚ
 
 
     //new
     //void *memset(void *str, int c, size_t n)
-    //å¤åˆ¶å­—ç¬¦ cï¼ˆä¸€ä¸ªæ— ç¬¦å·å­—ç¬¦ï¼‰åˆ°å‚æ•° str æ‰€æŒ‡å‘çš„å­—ç¬¦ä¸²çš„å‰ n ä¸ªå­—ç¬¦
-    //memsetä¸€æ¬¡åªèƒ½èµ‹å€¼ä¸€ä¸ªå­—èŠ‚ï¼Œ1çš„æ˜¯å››ä¸ªå­—èŠ‚ã€‚åªæœ‰0å’Œ-1æ˜¯ä¸€ä¸ªå­—èŠ‚
+    //¸´ÖÆ×Ö·û c£¨Ò»¸öÎŞ·ûºÅ×Ö·û£©µ½²ÎÊı str ËùÖ¸ÏòµÄ×Ö·û´®µÄÇ° n ¸ö×Ö·û
+    //memsetÒ»´ÎÖ»ÄÜ¸³ÖµÒ»¸ö×Ö½Ú£¬1µÄÊÇËÄ¸ö×Ö½Ú¡£Ö»ÓĞ0ºÍ-1ÊÇÒ»¸ö×Ö½Ú
     int* p2=new int[5]{1000};
     cout<<p2[1]<<endl;
+    cout<<&p2[0]<<endl;
+    cout<<&p2[1]<<endl;//¸ÕºÃ²î4£¬Á¬Ğø·ÖÅäÄÚ´æ
     delete[] p2;
 
 
     int p3[20];
-    memset(p3, -1,20);
-    cout<<p3[0]<<endl;
+    memset(p3, 1,20);
+    cout<<p3[4]<<endl;
+
+
+
+    //weakptrÖ¸Õë²»¿ØÖÆÉúÃüÖÜÆÚ£¬Ğ­Öúshardptr¹¤×÷£¬Ã»ÓĞÖØĞ´ operator-> ºÍ operator* ·½·¨£¬
+    // Òò´Ë²»ÄÜÏñ std::shared_ptr »ò std::unique_ptr Ò»ÑùÖ±½Ó²Ù×÷¶ÔÏó
+    //Í¨¹ıexpired()ÅĞ¶ÏÒıÓÃµÄ¶ÔÏóÊÇ·ñ±»Ïú»Ù
+
+    shared_ptr<int> shared = make_shared<int>(1000);
+    weak_ptr<int> weak(shared);
+    cout << shared.use_count() << endl;
+    shared.reset(new int(100000));
+
+    if(weak.expired()==true){
+        cout<<"¹ıÆÚÁË"<<endl;
+    }else{
+        cout<<"»¹Î´¹ıÆÚ"<<endl;
+    }
 
 
 
