@@ -24,6 +24,12 @@ class B:virtual public N{
 class C: public A,public B{
 public:
     int c_data=10000;
+    void show(){
+        cout<<"class c"<<endl;
+    }
+    ~C(){
+
+    }
 };
 
 
@@ -44,6 +50,9 @@ int main() {
     //memcpy()函数按指定大小copy,遇到\0也会结束
     char newdest[20];
     memcpy(newdest,src,100);
+    cout<<newdest<<endl;
+
+    memmove(newdest,src,100);
     cout<<newdest<<endl;
 
 
@@ -82,11 +91,31 @@ int main() {
     cout << shared.use_count() << endl;
     shared.reset(new int(100000));
 
+
+
+
+
+
     if(weak.expired()==true){
         cout<<"过期了"<<endl;
     }else{
         cout<<"还未过期"<<endl;
     }
+
+
+
+    //allocator
+    //先分配内存，然后在其上装载对象
+    std::allocator<C> alloc;
+    auto cptr = alloc.allocate(1); // 分配一个C对象的内存
+    alloc.construct(cptr);   // 调用C的构造函数，如果构造函数有参数，参数写在cptr之后
+    // cptr 现在是一个指向C的指针，且其指向对象被初始化过
+    // 对cptr进行一些操作
+    cptr->show();
+    // 销毁对象，但不释放内存，等同于调用销毁函数
+    alloc.destroy(cptr);
+    // 释放内存
+    alloc.deallocate(cptr, 1);
 
 
 

@@ -5,3 +5,5 @@
 3、strcpy和memcpy函数、memset、new
 
 4、weakptr使用
+
+5、allocator用法
