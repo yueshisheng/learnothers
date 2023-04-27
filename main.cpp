@@ -45,7 +45,31 @@ int main() {
     memcpy(newdest,src,100);
     cout<<newdest<<endl;
 
-    
+
+    //malloc和free函数使用
+    int* p;
+    p= (int*)malloc(sizeof(int));
+    int num=100;
+    p=&num;
+    cout<<*p<<endl;
+    free(p);//释放的是内存空间，指针依然存在
+
+
+    //new
+    //void *memset(void *str, int c, size_t n)
+    //复制字符 c（一个无符号字符）到参数 str 所指向的字符串的前 n 个字符
+    //memset一次只能赋值一个字节，1的是四个字节。只有0和-1是一个字节
+    int* p2=new int[5]{1000};
+    cout<<p2[1]<<endl;
+    delete[] p2;
+
+
+    int p3[20];
+    memset(p3, -1,20);
+    cout<<p3[0]<<endl;
+
+
+
 
 
 
