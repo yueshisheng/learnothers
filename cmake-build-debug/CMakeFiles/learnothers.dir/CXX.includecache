@@ -9,4 +9,8 @@
 C:/Users/Administrator/CLionProjects/learnothers/main.cpp
 iostream
 -
+stdio.h
+-
+string.h
+-
 
