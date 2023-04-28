@@ -32,10 +32,47 @@ public:
     }
 };
 
+struct student{
+    string name;
+    int age;
+};
+
+
+class person{
+public:
+    //C++提供了初始化列表语法，用来初始化属性
+    //
+    //语法：构造函数()：属性1(值1),属性2（值2）... {}
+    person(int a,int b):ma(a),mb(b){}
+    void printvalue(){
+        cout<<this->ma<<endl;
+        cout<<this->mb<<endl;
+    }
+private:
+    int ma;
+    int mb;
+
+};
+
+
+
 
 
 
 int main() {
+
+
+    person yue(100,300);
+    yue.printvalue();
+
+
+
+
+    student s1={"yueshisheng",25};//结构体初始化
+    cout<<s1.name<<endl;
+
+
+
     std::cout << sum(1,2,3,4,5,6)<< std::endl;
     C c;
     cout<<c.c_data<<endl;
