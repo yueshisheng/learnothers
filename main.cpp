@@ -32,10 +32,37 @@ public:
     }
 };
 
+class F
+{
+public:
+    int a;
+};
+
+class S : public F
+{
+public:
+    int b;
+};
+
+
 
 
 
 int main() {
+
+
+
+
+    F *father = new F;
+    S *son = new S;
+
+    // 父类转子类（不安全）
+    //son = father;					// 隐式转换失败
+    son = static_cast<S *>(father); // 转换成功，但是没有提供运行时检查，依然不安全
+
+    // 子类转父类（安全）
+    father = son;					// 成功
+    father = static_cast<F *>(son); // 成功
 
 
 
