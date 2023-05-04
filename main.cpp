@@ -32,44 +32,24 @@ public:
     }
 };
 
-struct student{
-    string name;
-    int age;
-};
-
-
-class person{
-public:
-    //C++提供了初始化列表语法，用来初始化属性
-    //
-    //语法：构造函数()：属性1(值1),属性2（值2）... {}
-    person(int a,int b):ma(a),mb(b){}
-    void printvalue(){
-        cout<<this->ma<<endl;
-        cout<<this->mb<<endl;
-    }
-private:
-    int ma;
-    int mb;
-
-};
-
-
-
 
 
 
 int main() {
 
 
-    person yue(100,300);
-    yue.printvalue();
+
+//    //高风险的类型转换，无法通过编译
+//    //1、不同指针类型进行转换
+//    int* intptr;
+//    char* charptr=static_cast<char *>(intptr);
+//    //2、整型和指针无法转换
+//    int i2=static_cast<int>(intptr);
 
 
 
 
-    student s1={"yueshisheng",25};//结构体初始化
-    cout<<s1.name<<endl;
+
 
 
 
