@@ -36,12 +36,20 @@ class F
 {
 public:
     int a;
+public:
+    F(){
+
+    }
+    F(int a){
+
+    }
 };
 
 class S : public F
 {
 public:
     int b;
+    using F::F;//，C++利用关键字using引入了继承构造的概念。派生类能够通过using语句声明要在子类中继承基类的全部构造函数
 };
 
 
@@ -49,6 +57,11 @@ public:
 
 
 int main() {
+
+
+
+
+
 
 
 
