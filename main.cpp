@@ -7,9 +7,10 @@
 using namespace std;
 template<typename   ...T>
 auto sum(T ... t){
-    return (t+ ... );//必须加个括号
+    return ( t +... );//必须加个括号
 
 }
+//虚基类在菱形继承中，只保留一个基类
 class N{
     public:
         int data=100;
@@ -36,20 +37,12 @@ class F
 {
 public:
     int a;
-public:
-    F(){
-
-    }
-    F(int a){
-
-    }
 };
 
 class S : public F
 {
 public:
     int b;
-    using F::F;//，C++利用关键字using引入了继承构造的概念。派生类能够通过using语句声明要在子类中继承基类的全部构造函数
 };
 
 
@@ -57,6 +50,35 @@ public:
 
 
 int main() {
+
+    //指针数组，先与[]结合，再和*结合
+    //二维数组是连续存放
+    char* str[3]={"yue","shi","sheng"};
+    //str作为指针数组的首地址，其实相当于该数组的一个指针，所以可以赋值给指针的指针
+    char** str2=str;
+    cout<<"二维数组访问 = "<<**(str2+2)<<endl;
+    cout<<"二维数组："<<*(str2+1)<<endl;
+    cout<<"二维数组："<<str[2]<<endl;
+    int num1[2]={100,101};
+    int num2[2]={200,202};
+    int* numptr[2]={num1,num2};
+    int** twoptr=numptr;
+    cout<<"整数："<<*(twoptr+1)<<endl;
+    cout<<"整数："<<*twoptr[1]<<endl;
+    cout<<"整数："<<numptr[1]<<endl;
+    cout<<"整数："<<*numptr[1]<<endl;
+
+
+
+
+
+    cout<<"int的大小"<<sizeof(-1)<<endl;
+
+
+    //lamada表达式
+    int tep=12;
+    auto f=[tep](int a,int b){return a-b+tep;};
+    cout<<f(2,4)<<endl;
 
 
 
@@ -120,6 +142,7 @@ int main() {
     p=&num;
     cout<<*p<<endl;
     free(p);//释放的是内存空间，指针依然存在
+    p= nullptr;
 
 
     //new
@@ -135,7 +158,8 @@ int main() {
 
     int p3[20];
     memset(p3, 1,20);
-    cout<<p3[4]<<endl;
+    //在int数组中，一个个体就是int，4个字节，每一个字节都为1，则一个int为16843009
+    cout<<"p3:"<<p3[4]<<endl;
 
 
 
@@ -145,6 +169,7 @@ int main() {
 
     shared_ptr<int> shared = make_shared<int>(1000);
     weak_ptr<int> weak(shared);
+
     cout << shared.use_count() << endl;
     shared.reset(new int(100000));
 
